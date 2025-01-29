@@ -13,11 +13,13 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import PersonIcon from '@mui/icons-material/Person'
 import SmartToyIcon from '@mui/icons-material/SmartToy'
 import { blue, green, grey } from '@mui/material/colors'
+import { useTranslation } from 'react-i18next'
 
 const ChatHistory = () => {
   const [conversationsData, setConversationsData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  let { t } = useTranslation()
 
   useEffect(() => {
     fetchConversations()
@@ -67,7 +69,10 @@ const ChatHistory = () => {
         }}
       >
         <ChatIcon />
-        <Typography variant='h6'>Historique des Conversations de {conversationsData.client_name}</Typography>
+        <Typography variant='h6'>
+          {t('History of Conversations of ')}
+          {conversationsData.client_name}
+        </Typography>
       </Box>
 
       <List>
