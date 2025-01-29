@@ -45,18 +45,18 @@ const LanguageDropdown = ({ settings, saveSettings }) => {
               saveSettings({ ...settings, direction: 'ltr' })
             }
           }
-        },
-        {
-          text: 'Arabic',
-          menuItemProps: {
-            sx: { py: 2 },
-            selected: i18n.language === 'ar',
-            onClick: () => {
-              handleLangItemClick('ar')
-              saveSettings({ ...settings, direction: 'rtl' })
-            }
-          }
         }
+        // {
+        //   text: 'Arabic',
+        //   menuItemProps: {
+        //     sx: { py: 2 },
+        //     selected: i18n.language === 'ar',
+        //     onClick: () => {
+        //       handleLangItemClick('ar')
+        //       saveSettings({ ...settings, direction: 'rtl' })
+        //     }
+        //   }
+        // }
       ]}
     />
   )
