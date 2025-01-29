@@ -21,6 +21,7 @@ import FormHelperText from '@mui/material/FormHelperText'
 import InputAdornment from '@mui/material/InputAdornment'
 import Typography from '@mui/material/Typography'
 import MuiFormControlLabel from '@mui/material/FormControlLabel'
+import { Chip } from '@mui/material'
 import { useRouter } from 'next/router'
 
 // ** Icon ImportsA
@@ -81,19 +82,6 @@ const TypographyStyled = styled(Typography)(({ theme }) => ({
   fontWeight: 600,
   marginBottom: theme.spacing(1.5),
   [theme.breakpoints.down('md')]: { mt: theme.spacing(8) }
-}))
-
-const LinkStyled = styled(Link)(({ theme }) => ({
-  fontSize: '0.875rem',
-  textDecoration: 'none',
-  color: theme.palette.primary.main
-}))
-
-const FormControlLabel = styled(MuiFormControlLabel)(({ theme }) => ({
-  '& .MuiFormControlLabel-label': {
-    fontSize: '0.875rem',
-    color: theme.palette.text.secondary
-  }
 }))
 
 const schema = yup.object().shape({
@@ -188,10 +176,17 @@ const LoginPage = () => {
       {!hidden ? (
         <Box sx={{ flex: 1, display: 'flex', position: 'relative', alignItems: 'center', justifyContent: 'center' }}>
           <LoginIllustrationWrapper>
-            <LoginIllustration
-              alt='login-illustration'
-              src={`/images/pages/${imageSource}-${theme.palette.mode}.png`}
-            />
+            <Divider variant='middle'>
+              {/* <Chip label='chat' color='primary' variant='outlined' />
+               */}
+              <Chip
+                label='Chat generator'
+                // color=''
+                variant='filled'
+                style={{ fontSize: '1.5rem', backgroundColor: 'black', color: 'white', padding: '8px 12px' }}
+              />
+            </Divider>
+            <LoginIllustration alt='login-illustration' src={`/images/alidantek/logo.png`} />
           </LoginIllustrationWrapper>
           <FooterIllustrationsV2 />
         </Box>
@@ -218,7 +213,7 @@ const LoginPage = () => {
                 justifyContent: 'center'
               }}
             >
-              <svg
+              {/* <svg
                 width={35}
                 height={29}
                 version='1.1'
@@ -276,8 +271,8 @@ const LoginPage = () => {
                     </g>
                   </g>
                 </g>
-              </svg>
-              <Typography
+              </svg> */}
+              {/* <Typography
                 variant='h6'
                 sx={{
                   ml: 3,
@@ -288,20 +283,21 @@ const LoginPage = () => {
                 }}
               >
                 {themeConfig.templateName}
-              </Typography>
+              </Typography> */}
             </Box>
             <Box sx={{ mb: 6 }}>
-              <TypographyStyled variant='h5'>Welcome to {themeConfig.templateName}! 👋🏻</TypographyStyled>
+              <TypographyStyled variant='h5'>Welcome to the chat generator! 👋🏻</TypographyStyled>
               <Typography variant='body2'>Please sign-in to your account and start the adventure</Typography>
             </Box>
-            <Alert icon={false} sx={{ py: 3, mb: 6, ...bgColors.primaryLight, '& .MuiAlert-message': { p: 0 } }}>
+            {/* <Alert icon={false} sx={{ py: 3, mb: 6, ...bgColors.primaryLight, '& .MuiAlert-message': { p: 0 } }}>
               <Typography variant='caption' sx={{ mb: 2, display: 'block', color: 'primary.main' }}>
                 Admin: <strong>admin@materio.com</strong> / Pass: <strong>admin</strong>
               </Typography>
               <Typography variant='caption' sx={{ display: 'block', color: 'primary.main' }}>
                 Client: <strong>client@materio.com</strong> / Pass: <strong>client</strong>
               </Typography>
-            </Alert>
+            </Alert> */}
+
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
               <FormControl fullWidth sx={{ mb: 4 }}>
                 <Controller
@@ -359,7 +355,7 @@ const LoginPage = () => {
                   </FormHelperText>
                 )}
               </FormControl>
-              <Box
+              {/* <Box
                 sx={{ mb: 4, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}
               >
                 <FormControlLabel
@@ -367,17 +363,17 @@ const LoginPage = () => {
                   control={<Checkbox checked={rememberMe} onChange={e => setRememberMe(e.target.checked)} />}
                 />
                 <LinkStyled href='/forgot-password'>Forgot Password?</LinkStyled>
-              </Box>
+              </Box> */}
               <Button fullWidth size='large' type='submit' variant='contained' sx={{ mb: 7 }}>
                 Login
               </Button>
               <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
-                <Typography variant='body2' sx={{ mr: 2 }}>
+                {/* <Typography variant='body2' sx={{ mr: 2 }}>
                   New on our platform?
-                </Typography>
-                <Typography variant='body2'>
+                </Typography> */}
+                {/* <Typography variant='body2'>
                   <LinkStyled href='/register'>Create an account</LinkStyled>
-                </Typography>
+                </Typography> */}
               </Box>
               <Divider sx={{ my: theme => `${theme.spacing(5)} !important` }}>or</Divider>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
