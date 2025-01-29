@@ -1,5 +1,8 @@
+import { useTranslation } from 'react-i18next'
+
 const navigation = () => {
   const userData = localStorage.getItem('userData')
+  let { t } = useTranslation()
   let clientId = ''
 
   if (userData) {
@@ -9,26 +12,26 @@ const navigation = () => {
 
   return [
     {
-      title: 'Dashboards',
+      title: t('Dashboards'),
       icon: 'mdi:home-outline',
       badgeContent: 'new',
       badgeColor: 'error',
       children: [
         {
-          title: 'Analytics',
+          title: t('Analytics'),
           path: '/dashboards/analytics',
           action: 'read',
           subject: 'dashboard'
         },
         {
-          title: 'Analytics client',
+          title: t('Analysis client'),
           path: '/dashboards/crmclient',
           action: 'read',
           subject: 'dashboardClient'
         },
 
         {
-          title: 'ChatBot Assistant',
+          title: t('ChatBot Assistant'),
           icon: 'mdi:message-outline',
 
           path: `/chatbot/${clientId}`,
@@ -38,11 +41,11 @@ const navigation = () => {
         },
 
         {
-          title: 'Clients',
+          title: 'Client',
           icon: 'mdi:file-document-outline',
           children: [
             {
-              title: 'Add',
+              title: t('Add'),
               path: '/apps/clients/add',
               action: 'read',
               subject: 'client'
@@ -54,7 +57,7 @@ const navigation = () => {
               subject: 'client'
             },
             {
-              title: 'Conversation History',
+              title: t('Conversation history'),
               path: '/apps/clients/historic',
               action: 'read',
               subject: 'conversationHistoric'
