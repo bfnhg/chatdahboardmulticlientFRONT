@@ -14,6 +14,7 @@ import FormLabel from '@mui/material/FormLabel'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
+import { useTranslation } from 'react-i18next'
 
 // ** Third Party Imports
 import toast from 'react-hot-toast'
@@ -36,6 +37,7 @@ const FormValidationBasic = () => {
   const [chatbotLink, setChatbotLink] = useState(null) // Lien du chatbot après soumission réussie
 
   const [clientName, setClientName] = useState(null)
+  let { t } = useTranslation()
 
   const {
     control,
@@ -105,7 +107,7 @@ const FormValidationBasic = () => {
 
   return (
     <Card>
-      <CardHeader title='Ajouter un compte entreprise' />
+      <CardHeader title={t('Add a business account')} />
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={3}>
@@ -119,7 +121,7 @@ const FormValidationBasic = () => {
                   render={({ field }) => (
                     <TextField
                       {...field}
-                      label='Name'
+                      label={t('Name')}
                       error={Boolean(errors.name)}
                       helperText={errors.name && errors.name.message}
                     />
@@ -155,7 +157,7 @@ const FormValidationBasic = () => {
                   render={({ field }) => (
                     <TextField
                       {...field}
-                      label='Description'
+                      label={t('Description')}
                       multiline
                       rows={4}
                       error={Boolean(errors.description)}
@@ -175,7 +177,7 @@ const FormValidationBasic = () => {
                   render={({ field }) => (
                     <TextField
                       {...field}
-                      label='Address'
+                      label={t('Address')}
                       error={Boolean(errors.address)}
                       helperText={errors.address && errors.address.message}
                     />
@@ -188,11 +190,21 @@ const FormValidationBasic = () => {
                 <Controller
                   name='site'
                   control={control}
-                  rules={{ required: 'Site is required' }}
+                  rules={{
+                    required: 'Site is required',
+                    validate: value => {
+                      // Regex pour valider une URL
+                      const urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/
+                      if (!urlPattern.test(value)) {
+                        return 'Please enter a valid URL (e.g., https://example.com)'
+                      }
+                      return true
+                    }
+                  }}
                   render={({ field }) => (
                     <TextField
                       {...field}
-                      label='Site'
+                      label={t('Web site')}
                       error={Boolean(errors.site)}
                       helperText={errors.site && errors.site.message}
                     />
@@ -209,7 +221,7 @@ const FormValidationBasic = () => {
                   render={({ field }) => (
                     <TextField
                       {...field}
-                      label='Phone'
+                      label={t('Phone')}
                       error={Boolean(errors.phone)}
                       helperText={errors.phone && errors.phone.message}
                     />
@@ -228,7 +240,7 @@ const FormValidationBasic = () => {
                     <TextField
                       {...field}
                       type='password'
-                      label='Password'
+                      label={t('Password')}
                       error={Boolean(errors.password)}
                       helperText={errors.password && errors.password.message}
                     />
@@ -260,7 +272,7 @@ const FormValidationBasic = () => {
                       maxWidth: '465px'
                     }}
                   >
-                    Téléverser un logo
+                    {t('Upload a logo')}
                   </Button>
                 </label>
                 {logoFile && (
@@ -273,11 +285,11 @@ const FormValidationBasic = () => {
 
             <Grid item xs={12}>
               <Typography variant='h6' gutterBottom>
-                Questions et Réponses
+                {t('Questions and Answers')}
               </Typography>
               <Grid item xs={12} container justifyContent='flex-end'>
                 <Button variant='outlined' onClick={handleAddQuestion}>
-                  Ajouter une question
+                  {t('Add a question')}
                 </Button>
               </Grid>
             </Grid>
@@ -311,7 +323,7 @@ const FormValidationBasic = () => {
                 </Grid>
                 <Grid item xs={12} style={{ textAlign: 'right' }}>
                   <Button variant='outlined' color='error' onClick={() => handleRemoveQuestion(index)}>
-                    Supprimer
+                    {t('Delete')}
                   </Button>
                 </Grid>
               </Grid>
@@ -320,7 +332,7 @@ const FormValidationBasic = () => {
             {/* Bouton de soumission unique */}
             <Grid item xs={12}>
               <Button type='submit' variant='contained'>
-                Soumettre
+                {t('Submit')}
               </Button>
             </Grid>
           </Grid>
@@ -330,7 +342,7 @@ const FormValidationBasic = () => {
         {chatbotLink && (
           <Grid item xs={12} sx={{ mt: 4 }}>
             <Typography variant='h6' color='primary'>
-              Le lien chatbot pour <strong>{clientName}</strong> :{' '}
+              {t('The chatbot link for')}: <strong>{clientName}</strong> :{' '}
               <a href={chatbotLink} target='_blank' rel='noopener noreferrer'>
                 {chatbotLink}
               </a>
