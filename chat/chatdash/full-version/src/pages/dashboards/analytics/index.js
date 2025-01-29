@@ -18,6 +18,7 @@ import TableSelection from 'src/views/table/data-grid/TableSelection'
 // ** Demo Components Imports
 import AnalyticsTable from 'src/views/dashboards/analytics/AnalyticsTable'
 import AnalyticsWeeklyOverview from 'src/views/dashboards/analytics/AnalyticsWeeklyOverview'
+import { useTranslation } from 'react-i18next'
 
 const Dashboard = () => {
   const [totalConversationsAdmin, setTotalConversationsAdmin] = useState(null)
@@ -26,8 +27,9 @@ const Dashboard = () => {
   const [totalAssistantMessages, setTotalAssistantMessages] = useState(null)
   const [totalUserMessages, setTotalUserMessages] = useState(null)
   const [totalAdminclientMessages, settotalAdminclientMessages] = useState(null)
-  const [totalUserMessagesbyday, setTotalmessagebyday] = useState(null)
+  const [Average, setAverage] = useState(null)
   const [userRole, setUserRole] = useState(null)
+  let { t } = useTranslation()
 
   const fetchTotalMessage = async () => {
     try {
@@ -61,13 +63,13 @@ const Dashboard = () => {
     }
   }
 
-  const fetchTotalMessageByday = async () => {
+  const fetchAverage = async () => {
     try {
       // Get the token from localStorage or wherever you store it after login
       const token = localStorage.getItem('accessToken') // Adjust this key based on how you store the token
 
       // Make the API request with the Authorization header
-      const response = await axios.get('http://localhost:5000/api/messages/per-day', {
+      const response = await axios.get('http://localhost:5000/api/admin/messages/average', {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -75,8 +77,8 @@ const Dashboard = () => {
         withCredentials: true // Important if you're using cookies
       })
 
-      console.log('response', response)
-      setTotalmessagebyday(response.data.today_total_messages)
+      console.log('&', response)
+      setAverage(response.data.average_messages_per_conversation)
     } catch (error) {
       console.error('Error fetching total messages:', error)
 
@@ -191,7 +193,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchTotalMessage()
-    fetchTotalMessageByday()
+    fetchAverage()
     fetchTotalConversationsAdmin()
     fetchMessageCountsCliantsAdmin()
 
@@ -201,37 +203,6 @@ const Dashboard = () => {
   return (
     <ApexChartWrapper>
       <Grid container spacing={6}>
-        {userRole === 'client' && (
-          <>
-            <Grid item xs={12} md={4}>
-              <CardStatisticsVerticalComponent
-                stats={totalUserMessagesbyday !== null ? `${totalUserMessagesbyday}` : 'Loading...'}
-                icon={<Icon icon='mdi:account' />}
-                color='success'
-                title='Messages Utilisateur'
-              />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <CardStatisticsVerticalComponent
-                stats={totalUserMessages !== null ? `${totalUserMessages}` : 'Loading...'}
-                icon={<Icon icon='mdi:account' />}
-                color='success'
-                title='Messages Utilisateur'
-              />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <CardStatisticsVerticalComponent
-                stats={totalAssistantMessages !== null ? `${totalAssistantMessages}` : 'Loading...'}
-                icon={<Icon icon='mdi:robot' />}
-                color='primary'
-                title='Messages Assistant'
-              />
-            </Grid>
-            <Grid item xs={8} md={2} lg={12}>
-              <AnalyticsWeeklyOverview />
-            </Grid>
-          </>
-        )}
         {userRole === 'admin' && (
           <>
             <Grid item xs={12} md={4}>
@@ -240,7 +211,7 @@ const Dashboard = () => {
                 stats={totalConversationsAdmin !== null ? `${totalConversationsAdmin}` : 'Loading...'}
                 icon={<Icon icon='mdi:account' />}
                 color='success'
-                title='Total Conversations'
+                title={t('Total Conversations')}
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -249,16 +220,16 @@ const Dashboard = () => {
                 stats={totalAdminclientMessages !== null ? `${totalAdminclientMessages}` : 'Loading...'}
                 icon={<Icon icon='mdi:account' />}
                 color='success'
-                title='Total message'
+                title={t('Total message')}
               />
             </Grid>
             <Grid item xs={12} md={4}>
               {' '}
               <CardStatisticsVerticalComponentAdmin
-                stats={totalUserMessagesbyday !== null ? `${totalUserMessagesbyday}` : 'Loading...'}
+                stats={Average !== null ? `${Average}` : 'Loading...'}
                 icon={<Icon icon='mdi:account' />}
                 color='success'
-                title='Messages Utilisateur'
+                title={t('Average')}
               />
             </Grid>
             <Grid item xs={12}>
