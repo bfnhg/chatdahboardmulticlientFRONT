@@ -7,6 +7,7 @@ import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import { DataGrid } from '@mui/x-data-grid'
+import { useTranslation } from 'react-i18next'
 
 // ** Custom Components
 import CustomChip from 'src/@core/components/mui/chip'
@@ -23,6 +24,7 @@ const TableSelection = () => {
   const [pageSize, setPageSize] = useState(7)
   const [clients, setClients] = useState([])
   const [loading, setLoading] = useState(true)
+  let { t } = useTranslation()
 
   // Fetch clients data from API
   useEffect(() => {
@@ -56,20 +58,20 @@ const TableSelection = () => {
     {
       flex: 0.25,
       minWidth: 290,
-      field: 'name',
+      field: t('Name'),
       headerName: 'Name',
       renderCell: params => {
         const { row } = params
 
         return (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <CustomAvatar
+            {/* <CustomAvatar
               skin='light'
               color='primary'
               sx={{ mr: 3, fontSize: '.8rem', width: '1.875rem', height: '1.875rem' }}
             >
               {getInitials(row.name || 'John Doe')}
-            </CustomAvatar>
+            </CustomAvatar> */}
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <Typography noWrap variant='body2' sx={{ color: 'text.primary', fontWeight: 600 }}>
                 {row.name}
@@ -85,7 +87,7 @@ const TableSelection = () => {
     {
       flex: 0.175,
       minWidth: 120,
-      headerName: 'Role',
+      headerName: t('Role'),
       field: 'role',
       renderCell: params => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
@@ -96,7 +98,7 @@ const TableSelection = () => {
     {
       flex: 0.175,
       minWidth: 140,
-      headerName: 'Phone',
+      headerName: t('Phone'),
       field: 'phone',
       renderCell: params => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
@@ -107,7 +109,7 @@ const TableSelection = () => {
     {
       flex: 0.175,
       minWidth: 140,
-      headerName: 'Created At',
+      headerName: t('Created at'),
       field: 'created_at',
       renderCell: params => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
@@ -118,7 +120,7 @@ const TableSelection = () => {
     {
       flex: 0.175,
       minWidth: 160,
-      headerName: 'Nombre de message',
+      headerName: t('Number of messages'),
       field: 'message_count',
       renderCell: params => (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
@@ -130,7 +132,7 @@ const TableSelection = () => {
 
   return (
     <Card>
-      <CardHeader title='Clients List' />
+      <CardHeader title={t('Customer List')} />
       <DataGrid
         autoHeight
         rows={clients}
