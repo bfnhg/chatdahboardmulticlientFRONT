@@ -153,10 +153,9 @@ const UserDropdown = props => {
             </Box>
           </Box>
         </Box>
-        <Divider sx={{ mt: '0 !important' }} />
 
-        {/* Exemple d'affichage d'autres informations */}
-        {clientData && (
+        {/* Afficher les informations supplémentaires seulement si clientData est rempli */}
+        {clientData && clientData.site && clientData.address && clientData.phone && (
           <Box sx={{ px: 4, py: 2 }}>
             <Typography variant='body2' sx={{ mb: 1 }}>
               <strong>Site:</strong> {clientData.site}
