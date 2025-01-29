@@ -11,6 +11,7 @@
   "User Messages": "Messages des utilisateurs",
   "Name": "Nom",
   "Role": "Rôle",
+  "Conversations by Country": "Conversations par pays",
 
   "Phone": "Téléphone",
   "Created at": "Créé à",
@@ -27,6 +28,8 @@
   "Delete": "supprimer",
   "Submit": "Soumettre",
   "The chatbot link for": "Le lien chatbot pour",
-  "": "",
+  "Weekly Overview": "Aperçu hebdomadaire",
+  "Chat assistance": "Assistance chat",
+  "History of Conversations of": "Historique des Conversations de",
   "": ""
 }
