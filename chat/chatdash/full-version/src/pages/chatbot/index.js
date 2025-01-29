@@ -3,11 +3,14 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
+import { useTranslation } from 'react-i18next'
 
 const ChatbotPage = ({ chatbotId, sidebarWidth, mdAbove }) => {
   const [inputValue, setInputValue] = useState('')
   const [messages, setMessages] = useState([])
   const [ipAddress, setIpAddress] = useState('')
+  const [userData, setUserData] = useState(null)
+  let { t } = useTranslation()
 
   const suggestions = [
     'Quels sont les services offerts par ALIDANTEK ?',
@@ -16,6 +19,11 @@ const ChatbotPage = ({ chatbotId, sidebarWidth, mdAbove }) => {
   ]
 
   useEffect(() => {
+    const storedUserData = localStorage.getItem('userData')
+    if (storedUserData) {
+      setUserData(JSON.parse(storedUserData))
+    }
+
     fetch('https://api.ipify.org?format=json')
       .then(response => response.json())
       .then(data => setIpAddress(data.ip))
@@ -116,7 +124,7 @@ const ChatbotPage = ({ chatbotId, sidebarWidth, mdAbove }) => {
         </Typography>
 
         <Typography variant='h6' sx={{ textAlign: 'center', flexGrow: 1 }}>
-          Assistant chat Alidantek
+          {userData ? t(`Assistance chat, ${userData.name}`) : 'Assistant chat Alidantek'}
         </Typography>
 
         <Typography variant='h6'>
