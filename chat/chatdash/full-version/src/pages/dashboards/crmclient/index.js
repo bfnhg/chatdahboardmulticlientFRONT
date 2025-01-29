@@ -1,4 +1,3 @@
-// ** MUI Imports
 import Grid from '@mui/material/Grid'
 import { useEffect, useState } from 'react'
 import axios from 'axios' // You can use axios or fetch for API calls
@@ -9,6 +8,7 @@ import Icon from 'src/@core/components/icon'
 // ** Custom Components Imports
 import CardStatisticsVerticalComponent from 'src/@core/components/card-statistics/card-stats-vertical'
 import AnalyticsWeeklyOverview from 'src/views/dashboards/analytics/AnalyticsWeeklyOverview'
+import { useTranslation } from 'react-i18next'
 
 // ** Styled Component Import
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
@@ -18,6 +18,7 @@ const Dashboard = () => {
   const [totalConversations, setTotalConversations] = useState(null)
   const [conversationsByCountry, setConversationsByCountry] = useState([])
   const [userRole, setUserRole] = useState(null)
+  let { t } = useTranslation()
 
   // Fetch user role from localStorage
   useEffect(() => {
@@ -96,7 +97,7 @@ const Dashboard = () => {
                 stats={totalMessages !== null ? `${totalMessages}` : 'Loading...'}
                 icon={<Icon icon='mdi:message' />}
                 color='info'
-                title='Total Messages'
+                title={t('Total message')}
               />
             </Grid>
 
@@ -106,7 +107,7 @@ const Dashboard = () => {
                 stats={totalConversations !== null ? `${totalConversations}` : 'Loading...'}
                 icon={<Icon icon='mdi:chat' />}
                 color='primary'
-                title='Total Conversations'
+                title={t('Total Conversations')}
               />
             </Grid>
 
@@ -118,7 +119,7 @@ const Dashboard = () => {
                 }
                 icon={<Icon icon='mdi:earth' />}
                 color='success'
-                title='Conversations by Country'
+                title={t('Conversations by Country')}
               />
             </Grid>
 
