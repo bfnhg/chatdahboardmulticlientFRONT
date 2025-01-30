@@ -95,6 +95,36 @@ const VerticalNavHeader = props => {
         userNavMenuBranding(props)
       ) : (
         <>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
+            {hidden ? (
+              <IconButton
+                disableRipple
+                disableFocusRipple
+                onClick={toggleNavVisibility}
+                sx={{ p: 0, backgroundColor: 'transparent !important', marginLeft: 'auto' }}
+              >
+                <Icon icon='mdi:close' fontSize={20} />
+              </IconButton>
+            ) : userMenuLockedIcon === null && userMenuUnlockedIcon === null ? null : (
+              <IconButton
+                disableRipple
+                disableFocusRipple
+                onClick={() => saveSettings({ ...settings, navCollapsed: !navCollapsed })}
+                sx={{
+                  p: 0,
+                  color: 'text.primary',
+                  backgroundColor: 'transparent !important',
+                  '& svg': {
+                    fontSize: '1.25rem',
+                    ...menuCollapsedStyles,
+                    transition: 'opacity .25s ease-in-out'
+                  }
+                }}
+              >
+                {navCollapsed ? MenuUnlockedIcon() : MenuLockedIcon()}
+              </IconButton>
+            )}
+          </Box>
           <HeaderTitle
             variant='h6'
             sx={{
@@ -106,46 +136,21 @@ const VerticalNavHeader = props => {
           >
             {clientData?.name}
           </HeaderTitle>
-          <StyledLink href='/'>
+          <StyledLink href='/dashboards/analytics/'>
             <img
-              src={clientData ? `${backendUrl}${clientData.logo}` : '/images/avatars/1.png'}
-              alt='Client Logo'
+              src={
+                userData?.role === 'admin'
+                  ? '/images/alidantek/logo.png'
+                  : clientData?.logo
+                  ? `${backendUrl}${clientData.logo}`
+                  : '/images/alidantek/logo.png'
+              }
+              onError={e => (e.target.src = '/images/alidantek/logo.png')}
               style={{ width: 150, height: 150, marginBottom: theme.spacing(2) }} // Espace sous l'image
             />
           </StyledLink>
         </>
       )}
-
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
-        {hidden ? (
-          <IconButton
-            disableRipple
-            disableFocusRipple
-            onClick={toggleNavVisibility}
-            sx={{ p: 0, backgroundColor: 'transparent !important', marginLeft: 'auto' }}
-          >
-            <Icon icon='mdi:close' fontSize={20} />
-          </IconButton>
-        ) : userMenuLockedIcon === null && userMenuUnlockedIcon === null ? null : (
-          <IconButton
-            disableRipple
-            disableFocusRipple
-            onClick={() => saveSettings({ ...settings, navCollapsed: !navCollapsed })}
-            sx={{
-              p: 0,
-              color: 'text.primary',
-              backgroundColor: 'transparent !important',
-              '& svg': {
-                fontSize: '1.25rem',
-                ...menuCollapsedStyles,
-                transition: 'opacity .25s ease-in-out'
-              }
-            }}
-          >
-            {navCollapsed ? MenuUnlockedIcon() : MenuLockedIcon()}
-          </IconButton>
-        )}
-      </Box>
     </MenuHeaderWrapper>
   )
 }
